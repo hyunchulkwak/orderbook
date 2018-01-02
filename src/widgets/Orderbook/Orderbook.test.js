@@ -3,16 +3,16 @@ import { mount } from 'enzyme';
 import { Orderbook } from './Orderbook';
 
 test('getDepthDevisor returns the highest total of asks and bids', () => {
-  // assume asks are sorted by price in ascending order, bids are in descending order.
+  // assume asks and bids are sorted by price in ascending order
   const asks = [
     [100, 1, 1],
     [103, 20, 21],
     [105, 30, 51],
   ];
   const bids = [
-    [99, 3, 3],
+    [91, 3, 3],
     [95, 7, 10],
-    [91, 90, 100],
+    [99, 90, 100],
   ];
   const wrapper = mount(
     <Orderbook
