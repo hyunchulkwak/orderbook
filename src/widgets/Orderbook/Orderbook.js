@@ -40,7 +40,7 @@ class Orderbook extends Component {
           <OrderTable
             caption="asks"
             headerRow={['Price', 'Size', 'Total']}
-            contentRows={asks.reverse()}
+            contentRows={asks.slice().reverse()}
             priceFormat={priceFormat}
             depthDevisor={this.getDepthDevisor()}
             color="#d16547"
