@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   PriceBoard,
   OrderTable,
 } from './components';
+import { connectSocket } from './actions';
 import './Orderbook.scss';
 
-class Orderbook extends Component {
+class OrderbookBase extends Component {
+  componentDidMount() {
+    this.props.connectSocket();
+  }
+
   getDepthDevisor() {
     const { asks, bids } = this.props;
 
@@ -34,6 +40,11 @@ class Orderbook extends Component {
       lastTickDirection,
       priceFormat,
     } = this.props;
+
+    if (!asks.length || !bids.length) {
+      return null;
+    }
+
     return (
       <div className="order-book">
         {asks ?
@@ -69,13 +80,13 @@ class Orderbook extends Component {
   }
 }
 
-Orderbook.defaultProps = {
+OrderbookBase.defaultProps = {
   asks: [],
   bids: [],
   priceFormat: '0.0',
 };
 
-Orderbook.propTypes = {
+OrderbookBase.propTypes = {
   asks: PropTypes.arrayOf(PropTypes.array),
   bids: PropTypes.arrayOf(PropTypes.array),
   lastPrice: PropTypes.number.isRequired,
@@ -85,4 +96,28 @@ Orderbook.propTypes = {
   priceFormat: PropTypes.string,
 };
 
-export { Orderbook };
+const mapStateToProps = ({ orderbook }) => {
+  const {
+    asks,
+    bids,
+    lastPrice,
+    indexPrice,
+    fairPrice,
+    lastTickDirection,
+  } = orderbook;
+  return {
+    asks,
+    bids,
+    lastPrice,
+    indexPrice,
+    fairPrice,
+    lastTickDirection,
+  };
+};
+
+const Orderbook = connect(mapStateToProps, { connectSocket })(OrderbookBase)
+
+export {
+  Orderbook,
+  OrderbookBase,
+};

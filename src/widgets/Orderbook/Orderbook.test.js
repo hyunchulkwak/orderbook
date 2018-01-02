@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { Orderbook } from './Orderbook';
+import { OrderbookBase } from './Orderbook';
 
 test('getDepthDevisor returns the highest total of asks and bids', () => {
   // assume asks and bids are sorted by price in ascending order
@@ -14,14 +14,16 @@ test('getDepthDevisor returns the highest total of asks and bids', () => {
     [95, 7, 10],
     [99, 90, 100],
   ];
+  const mockFn = jest.fn();
   const wrapper = mount(
-    <Orderbook
+    <OrderbookBase
       asks={asks}
       bids={bids}
       lastPrice={99}
       indexPrice={101}
       fairPrice={102}
       lastTickDirection="PlusTick"
+      connectSocket={mockFn}
     />
   );
 
