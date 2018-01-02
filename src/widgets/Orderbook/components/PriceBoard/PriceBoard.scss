@@ -1,0 +1,48 @@
+$_name: 'price-board';
+
+.#{$_name} {
+  display: block;
+  text-align: center;
+
+  .#{$_name}__pane {
+
+  }
+
+  .#{$_name}__last-price {
+    font-size: 2rem;
+    line-height: 1.2;
+
+    svg {
+      vertical-align: top;
+    }
+
+    &.PlusTick,
+    &.ZeroPlusTick {
+      color: #3e8654;
+      svg {
+        fill: currentColor; 
+      }
+    }
+
+    &.MinusTick,
+    &.ZeroMinusTick {
+      color: #d16547;
+      svg {
+        fill: currentColor; 
+      }
+    }
+  }
+  
+  .#{$_name}__index-price {
+    color: #666;
+  }
+  
+  .#{$_name}__fair-price {
+    color: #000;
+  }
+
+  .#{$_name}__slash {
+    margin: 0 0.5rem;
+    color: #aaa;
+  }
+}
